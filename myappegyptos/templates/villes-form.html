@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Document</title>
+</head>
+<body>
+     <!-- Navbar (sit on top) -->
+     <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+                <a href="http://127.0.0.1:8000/#home" class="w3-bar-item w3-button"><b>Abdel™     </b><span class="w3-padding w3-black w3-opacity-min">  Egyptos</span></a>
+                    <!-- Float links to the right. Hide them on small screens -->
+              <div class="w3-right w3-hide-small">
+                    <a href="http://127.0.0.1:8000/#villes" class="w3-bar-item w3-button">Meilleurs lieux</a>
+                    <a href="http://127.0.0.1:8000/#joueur" class="w3-bar-item w3-button">Meilleurs joueurs</a>
+                    <a href="http://127.0.0.1:8000/#contact" class="w3-bar-item w3-button">Contact</a>
+                  </div>
+            </div>
+        </div>
+        <br/><br/><br>
+        {% if ville %}
+        <h1>Modification d'une ville</h1>
+        {% else %}
+        <h1>Ajout d'une ville</h1>
+        {% endif %}
+
+    {% if ville %}
+        <div class="w3-col l3 m6 w3-margin-bottom left borderCard">
+                {% if ville.imgVille %}
+                <img src="{{ ville.imgVille.url }}" style="width:100%">
+                {% endif %}
+                <p >Name :</p>
+                <h3>{{ ville.name }}</h3>
+                <p >Description :</p>
+                <p class="w3-opacity">{{ville.description}}</p>
+                <p>Prix :</p><p class="w3-opacity">{{ville.price}}  </p>
+                
+        </div> 
+    {% endif %}
+    
+    <div class="w3-col l3 m6 w3-margin-bottom left">
+            <form method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <strong>Name : </strong>{{form.name}}<br><br>
+                <strong>Description : </strong>{{form.description}}<br><br>
+                <strong>image ville : </strong>{{form.imgVille}}<br><br>
+                <strong>Price : </strong> {{form.price}}<br><br>
+                <button class="buttonRegister" type="submit">Enregistrer</button>
+        
+            </form>
+    </div>
+    
+
+    {% if ville %}
+         <form action="{% url 'delete_ville' ville.id %}">
+            <button class="button">Delete</button>
+          </form>
+    {% endif %}
+    <br/><br/><br>
+    <br/><br/><br>
+
+<style>
+        .button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .buttonRegister {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+    .left{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    .borderCard{
+        border-style: inset;
+    }
+    </style>
+</body>
+</html>

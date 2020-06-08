@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<title>Egyptos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="http://127.0.0.1:8000/#home" class="w3-bar-item w3-button"><b>Abdel™     </b><span class="w3-padding w3-black w3-opacity-min">  Egyptos</span></a>
+      <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+        <a href="http://127.0.0.1:8000/#villes" class="w3-bar-item w3-button">Meilleurs lieux</a>
+        <a href="http://127.0.0.1:8000/#joueur" class="w3-bar-item w3-button">Meilleurs joueurs</a>
+        <a href="http://127.0.0.1:8000/#contact" class="w3-bar-item w3-button">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <img class="w3-image" src="https://img-4.linternaute.com/z9NAtXEFDJyVlTVP2K63VtEGwo0=/1240x/smart/d729d4ca03e74ff7b7dbbfb9e214aaea/ccmcms-linternaute/11452165.jpg" alt="Architecture" width="1500" height="800">
+  <div class="w3-display-middle w3-margin-top w3-center">
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-hide-small w3-text-light-grey"><b>Abdel™</b></span> <span class="w3-padding w3-black w3-opacity-min">  Egyptos</span></h1>
+  </div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+  <!-- Project Section -->
+  <div class="w3-container w3-padding-32" id="villes">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Meilleurs lieux</h3>
+  </div>
+    <div class="w3-row-padding">
+        <ul>
+            {% for ville in villes %}
+            <div class="w3-col l3 m6 w3-margin-bottom margin">
+                <div class="w3-display-container">
+                  <div class="w3-display-topleft w3-black w3-padding"> 
+                    <a href="{% url 'detail_ville' ville.id %}">{{ ville.name }}</a>
+                  </div>
+                 <div class="w3-display-topright w3-blue w3-padding"> 
+                    <a href= "{% url 'update_ville' ville.id %}">Modifer</a>
+                  </div>
+                  {% if ville.imgVille %}
+                     <img src="{{ ville.imgVille.url }}" style="width:100%" />
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+        </ul>
+    </div>
+  </br>
+</br>
+<form action="{% url 'create_ville' %}">
+  <button class="button" >Ajouter un lieu ! </button>
+</form>
+<br><br><br><br>
+  <!-- Joueur Section -->
+  <div class="w3-container w3-padding-32" id="joueur">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><strong>Meilleurs joueurs de football</strong></h3>
+    <p>Sport le plus populaire au monde, le football a connu de véritables héros qui ont transcendé le jeu lui-même et cimenté à jamais leur héritage dans l’esprit des fans.</br>
+      La véritable marque d’excellence d’un sportif réside dans sa capacité à résister à la pression et à être efficace lorsque cela compte le plus.</br></br>
+
+        <strong>Vous retrouverez ici les meilleurs joueurs de football ajouter par le public ajouter également le votre !</strong> <br>
+        C’est une tâche difficile, certains ne seront pas forcément d’accord avec les joueurs présent, et c’est effectivement un bon sujet de débat.
+        
+    </p>
+  </div>
+
+  <div class="w3-row-padding w3-grayscale border">
+      {% for joueur in joueurs %}
+        <div class="w3-col l3 m6 w3-margin-bottom">
+            <div class="w3-display-container">
+              <div class="w3-display-topright w3-padding"> 
+                <form action="{% url 'update_joueur' joueur.id %}">
+                    <button class="buttonJoueur" type="submit" value="Modifer">Modifier</button>
+                </form>
+              </div>
+            </div>
+            {% if joueur.imgJoueur %}
+              <img src="{{ joueur.imgJoueur.url }}" style="width:100%">
+            {% endif %}
+            <h3>{{ joueur.name }}</h3>
+            <p >Description :</p>
+            <p class="w3-opacity">{{joueur.description}}</p>
+            <p>Pays :</p><p class="w3-opacity">{{joueur.pays}}  </p>
+            <p>Club :</p><p class="w3-opacity">{{joueur.club}}  </p>
+            
+
+        </div>  
+      {% endfor %}
+  </div>
+  <form action="{% url 'create_joueur' %}">
+    <button class="button" type="submit">Ajouter un joueur ! </button>
+  </form>
+
+
+  <!-- Contact Section -->
+  <div class="w3-container w3-padding-32" id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
+    <form action="/action_page.php" target="_blank">
+      <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Subject" required name="Subject">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Comment" required name="Comment">
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-paper-plane"></i> SEND MESSAGE
+      </button>
+    </form>
+  </div>
+  
+<!-- End page content -->
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+  <p>Designed by Abdelrhman Abdalla © </p>
+</footer>
+
+<style>
+  .button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .buttonJoueur {
+    background-color: cyan;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .margin{
+    margin-right:50px;
+  }
+  </style>
+
+</body>
+</html>
